@@ -1,0 +1,7 @@
+.DS_Store
+.claude/worktrees/
+.worktrees/
+docs/bootstrap/
+.superpowers/
+# (language ignores TBD — set once language is chosen)
+# {{DATA_IGNORES: patterns for any sensitive source data — set by charter; delete if none}}
