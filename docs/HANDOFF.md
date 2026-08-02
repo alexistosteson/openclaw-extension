@@ -29,11 +29,11 @@ Run the charter brainstorm (fills CONSTITUTION §I–§IV and §VI, plus CLAUDE.
 
 ## Workflow — the ritual chain per spec
 
-1. **Set up worktree** — `superpowers:using-git-worktrees` → branch `claude/spec<N>-<topic>`.
-2. **Brainstorm** — `superpowers:brainstorming` → walk design sections with the owner one at a time → write spec to `docs/superpowers/specs/YYYY-MM-DD-spec<N>-<topic>.md` → dispatch spec-document-reviewer → fold recommendations → commit.
-3. **Plan** — Planning ritual in [CLAUDE.md](../CLAUDE.md) (NASA audit + task tiering) → `superpowers:writing-plans` → write to `docs/superpowers/plans/YYYY-MM-DD-spec<N>-<topic>.md` → dispatch plan-document-reviewer → fold recommendations → commit.
-4. **Execute** — `superpowers:subagent-driven-development`, following the **tiered-dispatch** skill: one subagent per task, review depth per the plan's `Review:` line, tier log per task.
-5. **Verify functionally** — before declaring any task done, exercise the affected flow for real. "Unit tests green" is not sufficient on its own.
+1. **Set up worktree** — `superpowers:using-git-worktrees` → branch `claude/spec<N>-<topic>`, in `.worktrees/` at the project root (already gitignored).
+2. **Brainstorm** — `superpowers:brainstorming` → walk design sections with the owner one at a time → write spec to `docs/superpowers/specs/YYYY-MM-DD-spec<N>-<topic>.md`, carrying the required sections from [specs/_SPEC-SECTIONS.md](superpowers/specs/_SPEC-SECTIONS.md) → run the skill's **inline spec self-review** (its placeholder scan catches unfilled required sections) → commit. *(Superpowers 5.0.6 deleted the spec-document-reviewer loop and the agent no longer exists — do not dispatch it.)*
+3. **Plan** — Planning ritual in [CLAUDE.md](../CLAUDE.md) (NASA audit + task tiering + task-to-spec traceability) → `superpowers:writing-plans` → write to `docs/superpowers/plans/YYYY-MM-DD-spec<N>-<topic>.md` → run the skill's **inline plan self-review** → commit. *(The plan-document-reviewer loop was removed in the same release.)*
+4. **Execute** — `superpowers:subagent-driven-development`, following the **tiered-dispatch** skill: one subagent per task, review depth per the plan's `Review:` line, tier log per task. Progress rides in the skill's plan-scoped ledger at `.superpowers/sdd/<plan-basename>/progress.md` — the within-spec recovery record; this file remains the record across specs. Pause between tasks per CLAUDE.md's Execution ritual.
+5. **Verify functionally** — before declaring any task done, exercise the affected flow for real. "Unit tests green" is not sufficient on its own. For any spec with a **Rendered output** section, the comparison is the **running surface against that artifact** — never code-against-spec alone, which passes whenever the code faithfully implements a defective spec.
 6. **Merge** — Spec-merge ritual in [CLAUDE.md](../CLAUDE.md), including this file's update.
 
 ---

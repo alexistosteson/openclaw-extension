@@ -11,6 +11,10 @@ Both are **compact routers**. Reference detail lives in load-on-demand files und
 
 {{DATA_BOUNDARIES: set by the charter brainstorm — what data may or may not enter Claude sessions, and any user-only operations. Delete this section if the project touches no sensitive data.}}
 
+## Spec ritual
+
+Every spec carries the sections in [docs/superpowers/specs/_SPEC-SECTIONS.md](docs/superpowers/specs/_SPEC-SECTIONS.md) on top of what `superpowers:brainstorming` writes: **Deliberately absent** always, and **Rendered output** whenever the spec produces a user-visible surface. Both are presence checks — an unfilled `{{...}}` marker trips the placeholder scan in brainstorming's spec self-review, so no separate reviewer is needed.
+
 ## Planning ritual
 
 Before writing an implementation plan for any spec:
@@ -18,11 +22,15 @@ Before writing an implementation plan for any spec:
 1. Run the NASA Power of Ten audit on the files the spec will touch: `/nasa-code <comma-separated paths>`
 2. Fold any 🔴 Critical or 🟠 High findings into the plan as explicit fix steps.
 3. Note 🟡 Medium findings in the plan as advisory comments.
-4. Tier every task: add the per-task `Model:`/`Review:` line per the **tiered-dispatch** skill, which the plan reviewer checks.
+4. Tier every task: add the per-task `Model:`/`Review:` line per the **tiered-dispatch** skill. Any task rendering a user-visible surface also carries `+ surface (<ref to the spec's Rendered output section>)` on that line — the reviewer is then given the artifact and returns a verdict on it separately from spec compliance.
+5. **Trace every task back to a spec requirement.** `writing-plans`' self-review already checks the forward direction (every spec requirement has a task); run the inverse too — a task that traces to nothing in the spec is scope creep. Cut it or amend the spec. This is where YAGNI is enforced, now that the spec-document reviewer is gone.
+6. The plan self-review also checks step 4's annotations: flag any `haiku` task lacking a cited precedent, containing prose-only steps ("add validation"), or without a mechanical check, and any task missing its reasons.
 
 ## Execution ritual
 
 When executing a plan task-by-task, follow the **tiered-dispatch** skill from the first implementer dispatch.
+
+**Check in between tasks.** `superpowers:subagent-driven-development` (6.2.0+) instructs the controller to execute every task without pausing. In this project that is overridden: pause after each task, report what landed, and confirm before dispatching the next. Owner preference — see the Collaboration model in [docs/HANDOFF.md](docs/HANDOFF.md). This instruction outranks the skill.
 
 ## Spec-merge ritual
 
