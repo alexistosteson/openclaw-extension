@@ -2,9 +2,11 @@
 state: ready
 next: Run the charter brainstorm
 tool: claude-code
-updated: 2026-07-24
+updated: 2026-08-06
 ---
 
 ## Queue
 
-*(empty)*
+- [ ] **Run the charter brainstorm.** The project was scaffolded 2026-07-20 with the standard structure but no charter: `CONSTITUTION.md` §I–§IV and §VI, plus the Data boundaries section of `CLAUDE.md` and the Current state paragraph of `docs/HANDOFF.md`, are still unfilled `{{...}}` placeholders (five in total). Run `superpowers:brainstorming` in claude-code, owner-in-the-loop, to fill them. **Blocked:** the project's purpose has never been set and only the owner can supply it — everything else is ready (scaffold, CONSTITUTION, HANDOFF, and the spec-sections file all exist). Also gated on an owner decision, recorded in the openclaw-privacy-scanner workstream, over whether the already-speced-but-unbuilt privacy-scanner plugin becomes this project's first deliverable or stays a standalone OpenClaw-workspace plugin; the charter should name it or explicitly exclude it. Done when `grep -rn '{{' CONSTITUTION.md CLAUDE.md docs/HANDOFF.md` returns nothing, §I–§IV and §VI carry real prose, §VI lists an ordered spec backlog with at least Spec 1, and `docs/constitution-amendments.md` has a dated entry logging the charter.
+
+- [ ] **Write and ship Spec 1.** The first spec through the full ritual chain in `docs/HANDOFF.md`: worktree → brainstorm → plan → execute → verify → merge. **Blocked on the charter brainstorm** — there is no spec topic until the charter sets purpose and roadmap, so scope, inputs, and the spec's own acceptance criteria cannot exist yet. Done when the spec file carries every section required by `docs/superpowers/specs/_SPEC-SECTIONS.md` with no `{{` markers remaining, the test suite is green on the rebased branch (note: the test command is itself a TBD in `CLAUDE.md`, pending the language choice, and must be set as part of this work), and the spec-merge ritual's doc updates land in the same merge — `docs/handoff/shipped.md` lists the spec and `docs/HANDOFF.md` has its "Last updated" advanced.
