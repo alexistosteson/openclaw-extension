@@ -9,7 +9,50 @@ Both are **compact routers**. Reference detail lives in load-on-demand files und
 
 ## Data boundaries
 
-{{DATA_BOUNDARIES: set by the charter brainstorm — what data may or may not enter Claude sessions, and any user-only operations. Delete this section if the project touches no sensitive data.}}
+This project builds **controls that constrain what leaves the OpenClaw sandbox**,
+so its subject matter is the boundary itself. That gives it one property no other
+project here has, and it governs everything below:
+
+> **Building the controls must never require holding the access the controls
+> exist to restrict.** If a task seems to need real mail, real files, or real
+> messages to proceed, that is a signal the design is wrong, not that the
+> boundary should be relaxed for it.
+
+**Inherited, not restated.** The sandbox posture lives in
+`~/.openclaw/openclaw.json` under `agents.defaults.sandbox`, and it is the source
+of truth — read it rather than trusting a copy here, which would drift. What
+matters for sessions in this repo:
+
+- Safety comes from the **container boundary**, not from denying network.
+- A specific set of settings is **owner-run and requires explicit consent every
+  time**: `network: host`, any `docker.dangerouslyAllow*` flag, host-path binds
+  (especially `~`, `~/.ssh`, `~/.aws`, `~/.openclaw`), mounting the Docker
+  socket, enabling `tools.elevated` / host-exec, and `sandbox.mode: off`.
+  **This project must never loosen one of these as a side effect of testing a
+  control.** Tightening is the point; loosening is a separate, owner-run
+  decision.
+- Email posture is read/organize-only. **Never add a send backend**, here or in
+  the sandbox config, without explicit consent.
+- Applying config is owner-run: `openclaw config patch` then
+  `openclaw sandbox recreate --agent main --force`. An agent session proposes a
+  diff; it does not apply one.
+
+**In Claude sessions for this repo:** no real personal, clinical, or financial
+content. Work against fixtures and synthetic cases. Where a control needs
+validating against reality, the owner runs it and reports the outcome — a
+redacted summary, a count, a pass/fail — not the content.
+
+**Why the bar is set here.** The project exists because an agent acting on the
+owner's behalf has not yet earned that trust: observed behaviour has diverged
+from owner intent around privacy. A control validated by an agent that granted
+itself the access under test would prove nothing. So verification of any control
+in this repo must be **observable independently of the agent's own account of
+it** — a config diff, a log line, a denied operation someone else can reproduce.
+
+**Adjacent, not the same:** `openclaw-privacy-scanner` (see
+`its own workstream notes, kept outside this repo`) *detects* sensitive content;
+this project *constrains egress*. They will overlap — settle the seam in the
+charter brainstorm rather than assuming either absorbs the other.
 
 ## Spec ritual
 
