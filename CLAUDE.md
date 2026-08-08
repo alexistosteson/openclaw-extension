@@ -26,7 +26,7 @@ matters for sessions in this repo:
 - Safety comes from the **container boundary**, not from denying network.
 - A specific set of settings is **owner-run and requires explicit consent every
   time**: `network: host`, any `docker.dangerouslyAllow*` flag, host-path binds
-  (especially `~`, `~/.ssh`, `~/.aws`, `~/.openclaw`), mounting the Docker
+  (especially `~`, `~/.ssh`, `~/.aws`, `~/.openclaw`), mounting the Docker  <!-- refcheck: ok -->
   socket, enabling `tools.elevated` / host-exec, and `sandbox.mode: off`.
   **This project must never loosen one of these as a side effect of testing a
   control.** Tightening is the point; loosening is a separate, owner-run
