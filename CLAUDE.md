@@ -49,8 +49,8 @@ itself the access under test would prove nothing. So verification of any control
 in this repo must be **observable independently of the agent's own account of
 it** — a config diff, a log line, a denied operation someone else can reproduce.
 
-**Adjacent, not the same:** `openclaw-privacy-scanner` (see
-`its own workstream notes, kept outside this repo`) *detects* sensitive content;
+**Adjacent, not the same:** `openclaw-privacy-scanner` (tracked in its own
+workstream notes, kept outside this repo) *detects* sensitive content;
 this project *constrains egress*. They will overlap — settle the seam in the
 charter brainstorm rather than assuming either absorbs the other.
 
